@@ -1,0 +1,22 @@
+Коммит 3: Добавление проверки на пустой ввод
+Файл: Program.cs
+Строка: 30 (после Console.ReadLine())
+Что делаем: Добавляем проверку, что пользователь что-то ввёл
+
+Было:
+
+Console.Write("Введите сторону A: ");
+string inputA = Console.ReadLine();
+if (inputA.ToLower() == "exit") break;
+
+Стало:
+
+Console.Write("Введите сторону A: ");
+string inputA = Console.ReadLine();
+if (string.IsNullOrWhiteSpace(inputA))
+{
+    Console.WriteLine("Ошибка: строка не может быть пустой!");
+    Log.Warning("Пользователь ввел пустую строку");
+    continue;
+}
+if (inputA.ToLower() == "exit") break;
