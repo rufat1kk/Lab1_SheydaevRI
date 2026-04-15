@@ -1,0 +1,19 @@
+Коммит 4: Добавление константы точности
+Файл: Program.cs
+Строка: 10 (внутри класса TriangleCalculator)
+Что делаем: Выносим значение точности сравнения в константу
+
+Было:
+
+
+public static class TriangleCalculator
+{
+    public static TriangleResult ProcessTriangle(...)
+Стало:
+
+
+public static class TriangleCalculator
+{
+    private const float EPSILON = 0.0001f; 
+    
+    public static TriangleResult ProcessTriangle(...)
