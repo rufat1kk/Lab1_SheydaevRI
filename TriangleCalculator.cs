@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Laba7
@@ -13,6 +13,7 @@ namespace Laba7
     {
         public static TriangleResult ProcessTriangle(string sideAStr, string sideBStr, string sideCStr)
         {
+            // Парсинг входных данных
             if (!float.TryParse(sideAStr, System.Globalization.NumberStyles.Float,
                 System.Globalization.CultureInfo.InvariantCulture, out float a) ||
                 !float.TryParse(sideBStr, System.Globalization.NumberStyles.Float,
@@ -27,6 +28,7 @@ namespace Laba7
                 };
             }
 
+            // Проверка на положительность сторон
             if (a <= 0 || b <= 0 || c <= 0)
             {
                 return new TriangleResult
@@ -36,6 +38,7 @@ namespace Laba7
                 };
             }
 
+            // Проверка неравенства треугольника
             if (a + b <= c || a + c <= b || b + c <= a)
             {
                 return new TriangleResult
@@ -45,6 +48,7 @@ namespace Laba7
                 };
             }
 
+            // Определение типа треугольника
             string triangleType;
             const float epsilon = 0.0001f;
 
@@ -55,6 +59,7 @@ namespace Laba7
             else
                 triangleType = "разносторонний";
 
+            // Вычисление координат
             var coordinates = CalculateCoordinates(a, b, c);
 
             return new TriangleResult
@@ -68,10 +73,12 @@ namespace Laba7
         {
             float Ax = 0, Ay = 0;
             float Bx = c, By = 0;
+
             float Cx = (b * b - a * a + c * c) / (2 * c);
-            
+
             float discriminant = b * b - Cx * Cx;
             if (discriminant < 0) discriminant = 0;
+
             float Cy = (float)Math.Sqrt(discriminant);
 
             float minX = Math.Min(0, Math.Min(c, Cx));
@@ -81,8 +88,10 @@ namespace Laba7
 
             float scaleX = (maxX - minX) != 0 ? 90f / (maxX - minX) : 1f;
             float scaleY = (maxY - minY) != 0 ? 90f / (maxY - minY) : 1f;
+
             if (float.IsInfinity(scaleX) || float.IsNaN(scaleX)) scaleX = 1f;
             if (float.IsInfinity(scaleY) || float.IsNaN(scaleY)) scaleY = 1f;
+
             float scale = Math.Min(scaleX, scaleY);
 
             float offsetX = (100f - scale * (maxX - minX)) / 2f - minX * scale;
